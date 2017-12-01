@@ -1,18 +1,31 @@
-(* ::Package:: *)
-
-(* ::Input::Initialization:: *)
 BeginPackage["QNMs`"];
 
-QNMSchwarzschild::usage = "QNMSchwarzschild[s_, l_, n_] calculates the quasinormal mode frequencies for a non-rotating black hole, using Leaver's continued fraction method. The convention used is M = 1/2.";
+QNMSchwarzschild::usage = 
+  "QNMSchwarzschild[s, l, n] calculates the quasinormal mode \
+frequencies for a non-rotating black hole, using Leaver's continued \
+fraction method. The convention used is M = 1/2.";
 
-QNMSchwarzschild::untrusted = "Currently, the results for this combination of l = `1` and n = `2` are not valid."
+QNMSchwarzschild::untrusted = "Currently, the results for this \
+combination of l = `1` and n = `2` are not valid."
 
-QNMKerr::usage = "QNMKerr[s, l, m, n, a] calculates the quasinormal mode frequencies for a rotating black hole, using Leaver's continued fraction method. The convention used is M = 1/2.";
+QNMKerr::usage = 
+  "QNMKerr[s, l, m, n, a] calculates the quasinormal mode frequencies \
+for a rotating black hole, using Leaver's continued fraction method. \
+The convention used is M = 1/2.";
 
-Begin["`Private`"];           (* Beginning private context which will contain all functions which the user doesn't need to access (and which may conflict with their own code*)
+QNMKerr::untrusted = "Currently, the results for this value of l = \
+`1` are not valid. Only the results for the first 2-3 modes are \
+trusted."
+
+QNMKerr::untrustedspin = "Currently, the results for this value of a \
+= `1` are not valid. Currently, the algorithm is not trusted near the \
+extremal limit."
+
+Begin["`Private`"];           (* Beginning private context which will \
+contain all functions which the user doesn't need to access (and \
+which may conflict with their own code*)
 
 M = 1/2; (* Mass. This is the convention in the given units... *)
-
 
 (* These are definition of some useful functions *)
 
@@ -40,15 +53,12 @@ c4[\[Omega]_, s_, m_, a_]:=s+1-2 \[Omega]^2-(2 s+3) I \[Omega]-((4 \[Omega]+2 I)
 \[Beta]ang[i_, \[Omega]_, Alm_, s_, m_, a_]:= i (i-1)+2 i (k1[m, s]+ k2[m, s]+1-2 a \[Omega])-(2 a \[Omega] (2k1[m, s]+s+1)- (k1[m, s]+k2[m, s]) (k1[m, s]+ k2[m, s]+1))-(a^2 \[Omega]^2+ s(s+1)+Alm);
 \[Alpha]ang[i_, \[Omega]_, s_, m_, a_]:=-2 (i+1) (i+2k1[m, s]+1);
 
-
 (* Initial guesses used as seeds in FindRoot *)
 (* Multiple asymptotic expansions are used for Schwarzschild, with different expansions providing better seeds for 
 different values of l and n *)
-Schwarzfinit1[s_, l_, n_]:= (-((I*(n + 1/2)*((235*(n + 1/2)^2)/3888 + \[Beta][s]/9 - 1415/15552))/(l + 1/2)^2) + 
-    (((204*(n + 1/2)^2 + 211)*\[Beta][s])/3888 + (854160*(n + 1/2)^4 - 1664760*(n + 1/2)^2 + 776939)/40310784 + 
-      (-(1/27))*\[Beta][s]^2)/(l + 1/2)^3 + (I*(n + 1/2)*(((1100*(n + 1/2)^2 - 2719)*\[Beta][s])/46656 + 
-       (11273136*(n + 1/2)^4 - 52753800*(n + 1/2)^2 + 66480535)/2902376448 + \[Beta][s]^2/27))/(l + 1/2)^4 + 
-    ((-(5/36))*(n + 1/2)^2 + \[Beta][s]/3 - 115/432)/(l + 1/2) + (l + 1/2) - I*(n + 1/2))/(Sqrt[27]*M);
+Schwarzfinit1[s_, l_, n_]:= ((I*(n+1/2)*(\[Beta][s]^2/27 + (\[Beta][s]*(1100*(n+1/2)^2 - 2719))/46656 + (11273136*(n+1/2)^4 - 52753800*(n+1/2)^2 + 66480535)/2902376448))/(l+1/2)^4 + 
+   (-(\[Beta][s]^2/27) + (\[Beta][s]*(204*(n+1/2)^2 + 211))/3888 + (854160*(n+1/2)^4 - 1664760*(n+1/2)^2 - 776939)/40310784)/(l+1/2)^3 - (I*(n+1/2)*(\[Beta][s]/9 + (235*(n+1/2)^2)/3888 - 1415/15552))/(l+1/2)^2 + 
+   (\[Beta][s]/3 - (5*(n+1/2)^2)/36 - 115/432)/(l+1/2) + (l+1/2) - I*(n+1/2))/(Sqrt[27]*M);
     
 Schwarzfinit2[n_] := Log[3]/(8 \[Pi] M) - I (n+1/2)/(4 M);
 
@@ -67,7 +77,6 @@ finit= (l + 1/2) \[CapitalOmega]r - I (n + 1/2) \[CapitalOmega]i
 ];
 
 KerrAinit[s_, l_] := l(l+1) - s(s+1);
-
 
 (* The functions for the continued fraction provide the actual equations of which the QNMs and spheroidal eigenvalues are roots *)
 (* These functions allow for the n-th inversion to be easily identified, and make use of memoization to improve eficiency by
@@ -128,56 +137,56 @@ Leaver31ang[\[Omega]_?NumericQ, Alm_?NumericQ, s_?IntegerQ, m_?IntegerQ, a_?Nume
 
 
 
-
 (* The callable functions are provided with a number of attributes and options*)
 SyntaxInformation[QNMSchwarzschild] = {ArgumentsPattern->{_, _, _}}; (* This specifies that QNMSchwarzschild takes exactly 3 arguments*)
 
-SetAttributes[QNMSchwarzschild, {NumericFunction, Listable}]; (* This function will be assumed to have a numerical value, if its arguments are numeric.
-																		It will also be automatically threaded over lists (so can compute QNMs for a list of modes.*)
+QNMSchwarzschild[s_Integer, l_Integer, n_Integer] /; l < Abs[s] := 0;
+QNMSchwarzschild[s_Integer, l_Integer, n_Integer] /; Abs[s] > 2 := 0;
 
-QNMSchwarzschild[s_, l_, n_] /; l < Abs[s] := 0;
-
-QNMSchwarzschild[s_, l_, n_] := Module[{NInv, finit, Sol, freq},
+QNMSchwarzschild[s_Integer, l_Integer, n_Integer] := Module[{NInv, finit, Sol, freq},
 NInv = n;
 
 If[n >= 6 && 3 <= l && l < n, Message[QNMSchwarzschild::untrusted, l, n]];
 
-If[l<= n, finit = Schwarzfinit2[n], finit = Schwarzfinit1[s, l, n]];
+If[l<= 2, finit = Schwarzfinit2[n], finit = Schwarzfinit1[s, l, n]];
+(*finit = Schwarzfinit1[s, l, n];*)
 
 Sol = FindRoot[{Re[Leaver[x +I y, s, l, n]] == 0, Im[Leaver[x + I y, s, l, n]] == 0}, {x,Re[finit]}, {y, Im[finit]}];
 
 freq = Sol[[1]][[2]] + I Sol[[2]][[2]]
 ];
-(*
-QNMSchwarzschild[s_, l_, n_] /; n \[GreaterEqual] 6 && 3 \[LessEqual] l && l < n := Module[{},
-Message[QNMSchwarzschild::untrusted, l, n];
-QNMSchwarzschild[s, l, n]
-];
-*)
 
-
-SyntaxInformation[QNMKerr] = {ArgumentsPattern->{_, _, _, _, _}}; (* This specifies that QNMKerr takes exactly 3 arguments*)
-
-SetAttributes[QNMKerr, {NumericFunction, Listable}]; (* This function will be assumed to have a numerical value, if its arguments are numeric.
+SetAttributes[QNMSchwarzschild, {NumericFunction, Listable, Protected}]; (* This function will be assumed to have a numerical value, if its arguments are numeric.
 																		It will also be automatically threaded over lists (so can compute QNMs for a list of modes.*)
-QNMKerr[s_, l_, m_, n_, a_] /; l < Abs[s] := 0;
-QNMKerr[s_, l_, m_, n_, a_] /; l < Abs[m] := 0;
-QNMKerr[s_, l_, m_, n_, a_] /; a == 0 := QNMSchwarzschild[s, l, n];
 
-QNMKerr[s_, l_, m_, n_, a_] :=Module[{NInv, Ainit,finit, Sol,freq, A},
+SyntaxInformation[QNMKerr] = {ArgumentsPattern->{_, _, _, _, _}}; (* This specifies that QNMKerr takes exactly 5 arguments*)
+
+QNMKerr[s_Integer, l_Integer, m_Integer, n_Integer, a_Integer] := QNMKerr[s, l, m, n, N[a]]; (* Unusual behaviour in the case where a was an integer (in these units, 0 is the only possible integer value) was encounterd and the function would not evaluate. *)
+QNMKerr[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] /; l < Abs[s] || l < Abs[m]  := 0;
+QNMKerr[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] /; a == 0 := QNMSchwarzschild[s, l, n];
+QNMKerr[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] /; Abs[s] > 2 := 0;
+QNMKerr[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] /; a > 0.5 || a < 0 := 0;
+
+
+QNMKerr[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] :=Module[{NInv, Ainit,finit, Sol,freq, A},
 NInv = n;
+
+If[ 2 <= l, Message[QNMKerr::untrusted, l]];
+If[ 0.45 < a, Message[QNMKerr::untrustedspin, a]];
 
 Ainit = KerrAinit[s, l];
 finit = Kerrfinit[s, l, m, n, a];
 
-Sol = FindRoot[{Re[Leaver31[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Im[Leaver31[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Re[Leaver31ang[\[Omega], Alm, s, m, a, NInv]]==0, Im[Leaver31ang[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0},{\[Omega]x, Re[finit]}, {\[Omega]y, Im[finit]}, {Ax, Re[Ainit]}, {Ay, Im[Ainit]}];
+Sol = FindRoot[{Re[Leaver31[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Im[Leaver31[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Re[Leaver31ang[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Im[Leaver31ang[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0},{\[Omega]x, Re[finit]}, {\[Omega]y, Im[finit]}, {Ax, Re[Ainit]}, {Ay, Im[Ainit]}];
 
 freq = Sol[[1]][[2]] + I Sol[[2]][[2]];
-(*A = Sol[[2]][[2]];*) (*May allow this to be returned as well, but for now the package is designed entirely to be QNMs only*)
+(*A = Sol[[3]][[2]] + I Sol[[4]][[2]];*) (*May allow this to be returned as well, but for now the package is designed entirely to be QNMs only*)
 
 freq
 ];
 
+SetAttributes[QNMKerr, {NumericFunction, Listable, Protected}]; (* This function will be assumed to have a numerical value, if its arguments are numeric.
+																		It will also be automatically threaded over lists (so can compute QNMs for a list of modes.)*)
 
 End[];
 
