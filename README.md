@@ -1,1 +1,1 @@
-# QNMs
+# QuasiNormalModes
