@@ -1,21 +1,21 @@
 (* ::Package:: *)
 
 Paclet[
-  Name -> "QNMs",
+  Name -> "QuasiNormalModes",
   Version -> "0.1.0",
   MathematicaVersion -> "11+",
   Creator -> "Conor O'Toole",
   Description -> "Code to return the Quasinormal Mode frequencies of a rotating or non-rotating frequency.",
   Extensions -> {
     { "Kernel",
-	  "Context" -> {"QNMs`"}
+	  "Context" -> {"QuasiNormalModes`"}
 	},
 
     {"Documentation",
      Language -> "English", 
-     MainPage -> "Guides/Quasinormal Modes",
+     MainPage -> "Guides/QuasiNormal Modes",
      Resources -> 
-     	{"Guides/Quasinormal Modes"}
+     	{"Guides/QuasiNormal Modes"}
     }
   }
 ]
