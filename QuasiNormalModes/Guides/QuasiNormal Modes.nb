@@ -20,7 +20,7 @@ WindowFrame->Normal*)
 Notebook[{
 
 Cell[CellGroupData[{
-Cell["Quasinormal Modes", "Title",
+Cell["QuasiNormal Modes", "Title",
  CellChangeTimes->{{3.7207912599937143`*^9, 
   3.7207912646809273`*^9}},ExpressionUUID->"e298fc47-7a79-489f-9731-\
 04285915bcda"],
