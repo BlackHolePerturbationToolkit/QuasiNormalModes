@@ -3,7 +3,7 @@
 (* ::Input::Initialization:: *)
 BeginPackage["QuasiNormalModes`"];
 
-QuasiNormalMode::usage = "QuasiNormalMode[s, l, m, n, a] calculates the quasinormal mode frequencies for a black hole, using Leaver's continued fraction method. The convention used is M = 1/2.";
+QuasiNormalMode::usage = "QuasiNormalMode[s, l, m, n, a] calculates the quasinormal mode frequencies for a black hole, using Leaver's continued fraction method. The convention used is M = 1.";
 
 QuasiNormalMode::SchwarzUntrusted = "Currently, for a Schwarzschild black hole, the results for this combination of l = `1` and n = `2` are not valid."
 
@@ -13,7 +13,7 @@ QuasiNormalMode::UntrustedSpin = "Currently, the results for this value of a = `
 
 Begin["`Private`"];           (* Beginning private context which will contain all functions which the user doesn't need to access (and which may conflict with their own code*)
 
-M = 1/2;(*1/2; (* Mass. This is the convention in the given units... *)*)
+M = 1; (* Mass. This is the standard convention *)
 
 
 (* These are definition of some useful functions *)
@@ -22,25 +22,19 @@ M = 1/2;(*1/2; (* Mass. This is the convention in the given units... *)*)
 k1[m_, s_] := 1/2 Abs[m-s];
 k2[m_, s_] := 1/2 Abs[m+s];
 
-\[Alpha][i_, \[Omega]_]  := i^2 - 2I \[Omega] i + 2 i - 2I \[Omega] + 1;
-\[Delta][i_, \[Omega]_,s_, l_] := -(2 i^2 + (2 - 8 I \[Omega])i + 8(I \[Omega])^2 - 4 I \[Omega] + l(l + 1) - \[Beta][s]);
-\[Gamma][i_, \[Omega]_, s_] := i^2 - 4 I \[Omega] i + 4(I \[Omega])^2 - \[Beta][s] - 1;
+\[Alpha][i_, \[Omega]_]  := i^2 - 4 M I \[Omega] i + 2 i - 4 M I \[Omega] + 1;
+\[Delta][i_, \[Omega]_,s_, l_] := -2 i^2 - (2 - 16 M I \[Omega])i + 32 M^2 \[Omega]^2 + 8 M I \[Omega] - l(l + 1) + \[Beta][s];
+\[Gamma][i_, \[Omega]_, s_] := i^2 - 8 M I \[Omega] i - 16 M^2 \[Omega]^2 - \[Beta][s] - 1;
 
-b[a_] := b[a] = Sqrt[1-4 a^2];
+b[a_] := b[a] = Sqrt[4 M^2 - 4 a^2];
 
-c0[\[Omega]_, s_, m_, a_]:=1-s-I \[Omega]-(2I/b[a])(\[Omega]/2-a m);
-c1[\[Omega]_, s_, m_, a_]:=-4+2 I \[Omega] (2+b[a])+(4 I/b [a])(\[Omega]/2-a m);
-c2[\[Omega]_, s_, m_, a_]:=s+3-3 I \[Omega]-(2 I/b [a])(\[Omega]/2-a m);
-c3[\[Omega]_, Alm_, s_, m_, a_]:=\[Omega]^2 (4+2 b[a]-a^2)-2 a m \[Omega]-s-1+(2+b[a]) I \[Omega]-Alm+((4 \[Omega]+2 I)/b[a]) (\[Omega]/2-a m);
-c4[\[Omega]_, s_, m_, a_]:=s+1-2 \[Omega]^2-(2 s+3) I \[Omega]-((4 \[Omega]+2 I)/b[a]) (\[Omega]/2-a m);
+\[Alpha]freq[i_,\[Omega]_, s_, m_, a_]:= i^2 + (2-s-2 M I \[Omega] -2 I/b[a] (2 M^2 \[Omega] - a m))i + 1 - s - 2 M I \[Omega] -2 I/b[a] (2 M^2 \[Omega] - a m);
+\[Beta]freq[i_,\[Omega]_, Alm_, s_, m_, a_]:= -2 i^2 +(-2 + 2(4 M + b[a]) I \[Omega] + 4 I/b[a] (2 M^2 \[Omega] - a m)) i + (16 M^2 + 4 M b[a] - a^2) \[Omega]^2 - s - 1 - 2 a m \[Omega] - Alm +(4 M + b[a]) I \[Omega] + (8 M \[Omega] + 2 I)/b[a] (2 M^2 \[Omega] - a m);
+\[Gamma]freq[i_, \[Omega]_, s_, m_, a_]:= i^2 + (s - 6 M I \[Omega] - 2 I/b[a] (2 M^2 \[Omega] - a m)) i - 8 M^2 \[Omega]^2 - 4 M I \[Omega] s - 8 M \[Omega]/b[a] (2 M^2 \[Omega] - a m);
 
-\[Gamma]freq[i_, \[Omega]_, s_, m_, a_]:=i^2+(c2[\[Omega], s, m, a]-3) i+c4[\[Omega], s, m, a]-c2[\[Omega], s, m, a]+2;
-\[Beta]freq[i_,\[Omega]_, Alm_, s_, m_, a_]:= -2 i^2+(c1[\[Omega], s, m, a]+2) i+c3[\[Omega], Alm, s, m, a];
-\[Alpha]freq[i_,\[Omega]_, s_, m_, a_]:= i^2+(c0[\[Omega], s, m, a]+1)i+c0[\[Omega], s, m, a];
-
-\[Gamma]ang[i_, \[Omega]_, s_, m_, a_]:=2 a \[Omega] (i+k1[m, s]+k2[m, s]+s);
-\[Beta]ang[i_, \[Omega]_, Alm_, s_, m_, a_]:= i (i-1)+2 i (k1[m, s]+ k2[m, s]+1-2 a \[Omega])-(2 a \[Omega] (2k1[m, s]+s+1)- (k1[m, s]+k2[m, s]) (k1[m, s]+ k2[m, s]+1))-(a^2 \[Omega]^2+ s(s+1)+Alm);
-\[Alpha]ang[i_, \[Omega]_, s_, m_, a_]:=-2 (i+1) (i+2k1[m, s]+1);
+\[Alpha]ang[i_, \[Omega]_, s_, m_, a_]:= -2 (i + 1) (i + 2 k1[m, s] + 1);
+\[Beta]ang[i_, \[Omega]_, Alm_, s_, m_, a_]:= i (i - 1) + 2 i (k1[m, s] + k2[m, s] + 1 - 2 a \[Omega]) - (2 a \[Omega] (2 k1[m, s] + s + 1) - (k1[m, s] + k2[m, s]) (k1[m, s] + k2[m, s] + 1)) - (a^2 \[Omega]^2 + s(s+1) + Alm);
+\[Gamma]ang[i_, \[Omega]_, s_, m_, a_]:= 2 a \[Omega] (i + k1[m, s] + k2[m, s] + s);
 
 
 (* Initial guesses used as seeds in FindRoot *)
@@ -154,7 +148,7 @@ Sol = FindRoot[{Re[Leaver[x +I y, s, l, NInv]] == 0, Im[Leaver[x + I y, s, l, NI
 
 freq = Sol[[1]][[2]] + I Sol[[2]][[2]];
 
-Print["Is this a solution?", " ", Leaver[freq, s, l, NInv]];
+(*Print["Is this a solution?", " ", Leaver[freq, s, l, NInv]];*)
 
 freq
 ];
@@ -166,7 +160,7 @@ QNMKerr[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] :=Module[{\[Epsilon]
 NInv = n;
 
 If[ 2 <= l, Message[QuasiNormalMode::KerrUntrusted, l]];
-If[ 0.45 < a, Message[QuasiNormalMode::UntrustedSpin, a]];
+If[ 0.9 < a, Message[QuasiNormalMode::UntrustedSpin, a]];
 
 Ainit = KerrAinit[s, l, m, n, a];
 finit = Kerrfinit[s, l, m, n, a];
