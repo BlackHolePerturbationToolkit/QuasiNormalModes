@@ -197,7 +197,7 @@ SyntaxInformation[QuasiNormalMode] = {ArgumentsPattern->{_, _, _, _, _}}; (* Thi
 
 (*QuasiNormalMode[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] /; l < Abs[s] := 0;*)
 QuasiNormalMode[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] /; Abs[s] > 2 := 0;
-QuasiNormalMode[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] /; a > 0.5 || a < 0 := 0;
+QuasiNormalMode[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] /; a > 0.999 || a < 0 := 0;
 QuasiNormalMode[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] /; a == 0. := QNMSchwarzschild[s, l, n];
 QuasiNormalMode[s_Integer, l_Integer, m_Integer, n_Integer, a_Integer] /; a == 0 := QNMSchwarzschild[s, l, n];
 QuasiNormalMode[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] := QNMKerr[s, l, m, n, a];
