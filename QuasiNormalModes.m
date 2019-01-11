@@ -5,7 +5,7 @@ BeginPackage["QuasiNormalModes`"];
 
 QuasiNormalMode::usage = "QuasiNormalMode[s, l, m, n, a] calculates the quasinormal mode frequencies for a black hole, using Leaver's continued fraction method. The convention used is M = 1.";
 
-QuasiNormalMode::SchwarzUntrusted = "Currently, for a Schwarzschild black hole, the results for this combination of l = `1` and n = `2` are not valid."
+(*QuasiNormalMode::SchwarzUntrusted = "Currently, for a Schwarzschild black hole, the results for this combination of l = `1` and n = `2` are not valid."*)
 
 QuasiNormalMode::KerrUntrusted = "Currently, for a Kerr black hole, the results for this value of l = `1` are not valid. Only the results for the first 2-3 modes are trusted."
 
@@ -53,7 +53,7 @@ Schwarzfinit2[n_] := Log[3]/(8 \[Pi] M) - I (n+1/2)/(4 M);
 
 (* Spectral method using hyperboloidal slicing *)
 (* n >= 6, 2<l<=n*)
-SpectralInitialGuess[s_, l_, n_]:= Module[{L1a, L1b, L2a, L2b, L2c, Prec, Ndiv, ndiv, \[Sigma], \[Sigma]0, \[Sigma]1, \[CapitalDelta]\[Sigma], x, Id, Z, c, d\[Sigma], D\[Sigma], D2\[Sigma], L1, L2, M, Eigens, Filtered},
+SpectralInitialGuess[s_, l_, n_]:= Module[{L1a, L1b, L2a, L2b, L2c, Prec, Ndiv, ndiv, \[Sigma], \[Sigma]0, \[Sigma]1, \[CapitalDelta]\[Sigma], x, Id, Z, c, d\[Sigma], D\[Sigma], D2\[Sigma], L1, L2, M, Eigens, Filtered, sPattern},
 (* Operators appearing in the wave equation in coordinated (\[Tau], \[Sigma]), excluding radial derivatives *)
 L1a = -((2 \[Sigma])/(\[Sigma]+1));
 L1b = (1-2\[Sigma]^2)/(\[Sigma]+1);
@@ -63,8 +63,8 @@ L2c = (\[Sigma]^2 (1-\[Sigma]))/(\[Sigma]+1);
 
 Prec = 100; (*Numerical precision, machine precision found to be insufficient*)
 			(* Make optional for users to set? Requires more testing as well *)
-Ndiv = 5n; (* Subdivision of radial domain \[Sigma] \[Element] [0,1] used for discretization of radial derivs *)
-ndiv = Ndiv +1; (* Matrix dimension *)
+If[n > 2, Ndiv = 5n, Ndiv = 20]; (* Subdivision of radial domain \[Sigma] \[Element] [0,1] used for discretization of radial derivs *)
+ndiv = Ndiv + 1; (* Matrix dimension *)
 
 \[Sigma]0 = 0;
 \[Sigma]1 = 1;
@@ -94,13 +94,18 @@ M = ArrayFlatten[{{Z, Id}, {L2, L1}}];
 (* Solve for eigenvalues *)
 Eigens = Eigenvalues[M] ;
 
+sPattern = Which[s==0,x_/;(Im[x]==0. ), 
+Abs[s]==1, x_/;(Im[x]==0. ) ,
+Abs[s]==2,  x_/;(Im[x]==0. && Abs[Re[x]+4] >0.2 )]; 
+
 (* Remove all values with Im[\[Omega]] = 0 *)
 Filtered = Reverse[DeleteCases[Eigens,x_/;(Im[x]>=0. )]];
+(*Filtered = Reverse[DeleteCases[Eigens,sPattern]];*)
 
 (*Pick out eigenvalue corresponding to the desired overtone *)
 (*Would be nice to save this and use the other elements for initial seeds for other values of n *)
 (*However, the accuracy decreases as one goes down the list *)
-I/4 Filtered[[n+1]]
+Which[Abs[s]==2 && l==2 && n>8, I/4 Filtered[[n]], Abs[s]==2 && l==2 && n==8, (0.4615178773933189 10^-15 - I 3.9999999999996)/2, True, I/4 Filtered[[n+1]]]
 ];
 
 
@@ -198,20 +203,25 @@ Leaver31ang[\[Omega]_?NumericQ, Alm_?NumericQ, s_?IntegerQ, m_?IntegerQ, a_?Nume
 
 QNMSchwarzschild[s_Integer, l_Integer, n_Integer] /; l < Abs[s] := 0; 
 
-QNMSchwarzschild[s_Integer, l_Integer, n_Integer] := Module[{NInv, finit, Sol, freq},
+QNMSchwarzschild[s_Integer, l_Integer, n_Integer] := Module[{NInv, finit, Sol, freq, freqtemp},
 NInv = n;
 
-If[n >= 6 && 3 <= l && l < n, Message[QuasiNormalMode::SchwarzUntrusted, l, n]];
+(*If[n >= 6 && 3 <= l && l < n, Message[QuasiNormalMode::SchwarzUntrusted, l, n]];*)
 
 (*Selection of initial seed method *)
 (*Ideally, we would first check how well this satisfies the eq to be solved.
  If within the user's desired accuracy, just return the initial guess.
  Would be faster *)
-Which[l< 2, finit = Schwarzfinit2[n], n < 6 && l >=  2, finit = Schwarzfinit1[s, l, n], n >=6 && l>=2 && l <=n, finit=SpectralInitialGuess[s, l, n], n >=6 && l>n, finit=Schwarzfinit1[s, l, n]];
+(*Which[n < 6 && l< 2, finit = SpectralInitialGuess[s, l, n](*Schwarzfinit2[n]*), n < 6 && l >=  2, finit = Schwarzfinit1[s, l, n], n >=6 (*&& l>=2*) && l <=n, finit=SpectralInitialGuess[s, l, n], n >=6 && l>n, finit=Schwarzfinit1[s, l, n]];*)
+(*finit = SpectralInitialGuess[s, l, n];*)
+Which[l <= Max[n,2], finit = SpectralInitialGuess[s, l, n],  l>n , finit = Schwarzfinit1[s, l, n]];
 
-Sol = FindRoot[{Re[Leaver[x +I y, s, l, NInv]] == 0, Im[Leaver[x + I y, s, l, NInv]] == 0}, {x,Re[finit]}, {y, Im[finit]}];
+If[Abs[s]==2 && l==2 && n==8, Sol = ReIm[finit], Sol = Values[FindRoot[{Re[Leaver[x +I y, s, l, NInv]] == 0, Im[Leaver[x + I y, s, l, NInv]] == 0}, {x,Re[finit]}, {y, Im[finit]}]]];
+(*Sol = FindRoot[Leaver[z, s, l, NInv] == 0, {z, finit}];*)
 
-freq = Sol[[1]][[2]] + I Sol[[2]][[2]];
+freq = Sol[[1]] + I Sol[[2]];
+
+If[Re[freq] < 0 && Im[freq] < 0, freqtemp = -Conjugate[freq]; freq = freqtemp]; 
 
 (*Print["Is this a solution?", " ", Leaver[freq, s, l, NInv]];*)
 
@@ -221,7 +231,7 @@ freq
 
 QNMKerr[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] /; l < Abs[s] || l < Abs[m]  := 0; (* Imposing condition on QNMKerr as QNMSchwarzschild should be independent of m *)
 
-QNMKerr[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] :=Module[{\[Epsilon], err, NInv, Ainit,finit, Sol,freq, A},
+QNMKerr[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] :=Module[{\[Epsilon], err, NInv, Ainit,finit, Sol,freq, A, freqtemp},
 NInv = n;
 
 If[ 2 <= l, Message[QuasiNormalMode::KerrUntrusted, l]];
@@ -232,7 +242,7 @@ finit = Kerrfinit[s, l, m, n, a];
 (*Print[finit, " ", Ainit];*)
 
 (*If[l < 4, Sol = FindRoot[{Re[Leaver31[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Im[Leaver31[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Re[Leaver31ang[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Im[Leaver31ang[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0},{\[Omega]x, Re[finit]}, {\[Omega]y, Im[finit]}, {Ax, Re[Ainit]}, {Ay, Im[Ainit]}], Sol = FindRoot[{Re[Leaver31[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Im[Leaver31[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Re[Leaver31ang[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Im[Leaver31ang[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0},{\[Omega]x, Re[finit]}, {\[Omega]y, Im[finit]}, {Ax, Re[Ainit], 0.6 Re[Ainit], 10 Re[Ainit]}, {Ay, Im[Ainit], 0.6 Im[Ainit], 10 Im[Ainit]}]];*)
-Sol = FindRoot[{Re[Leaver31[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Im[Leaver31[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Re[Leaver31ang[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Im[Leaver31ang[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0},{\[Omega]x, Re[finit]}, {\[Omega]y, Im[finit]}, {Ax, Re[Ainit](*, 0.6 Re[Ainit], 100 Re[Ainit]*)}, {Ay, Im[Ainit](*, 0.6 Im[Ainit], 100 Im[Ainit]*)}];
+Sol = Values[FindRoot[{Re[Leaver31[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Im[Leaver31[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Re[Leaver31ang[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0, Im[Leaver31ang[\[Omega]x + \[Omega]y I, Ax + Ay I, s, m, a, NInv]]==0},{\[Omega]x, Re[finit]}, {\[Omega]y, Im[finit]}, {Ax, Re[Ainit](*, 0.6 Re[Ainit], 100 Re[Ainit]*)}, {Ay, Im[Ainit](*, 0.6 Im[Ainit], 100 Im[Ainit]*)}]];
 (*
 \[Epsilon] = 0.1;
 
@@ -246,12 +256,12 @@ Print[Sol];
 
 (*Print[steps];*)
 
-freq = Sol[[1]][[2]] + I Sol[[2]][[2]];
-A = Sol[[3]][[2]] + I Sol[[4]][[2]];
+freq = Sol[[1]] + I Sol[[2]];
+A = Sol[[3]] + I Sol[[4]];
 
 (*Print["Are these solutions?", " ", Leaver31[freq, A, s, m, a, NInv], " ", Leaver31ang[freq, A, s, m, a, NInv]];*)
 
-If[Sol[[1]][[2]] < 0, freq = -Sol[[1]][[2]] + I Sol[[2]][[2]]]; (* Want to return all solutions in lower right quadrant for consistency *)
+If[Re[freq] < 0 && Im[freq] < 0, freqtemp = -Conjugate[freq]; freq = freqtemp];  (* Want to return all solutions in lower right quadrant for consistency *)
 (*A = Sol[[3]][[2]] + I Sol[[4]][[2]];*) (*May allow this to be returned as well, but for now the package is designed entirely to be QNMs only*)
 
 freq
