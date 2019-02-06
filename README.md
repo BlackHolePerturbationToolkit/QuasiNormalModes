@@ -56,6 +56,8 @@ be found in the LICENSE file.
 # Authors
 
 Conor O'Toole
+Rodrigo Macedo
+Barry Wardell
 
 # Citation guideline
 
