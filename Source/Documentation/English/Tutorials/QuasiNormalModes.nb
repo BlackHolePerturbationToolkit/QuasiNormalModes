@@ -1,0 +1,138 @@
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["QuasiNormalModes", \
+"Title",ExpressionUUID->"7049650a-afc7-4360-b5bb-5386076f8c63"],
+
+Cell["\<\
+The QuasiNormalModes package provides functions for computing quasinormal \
+modes of Schwarzschild and Kerr black holes. Before using the functions, \
+first load the package\
+\>", "Text",ExpressionUUID->"ae8d19c3-705f-4643-bbc8-b26b804331a4"],
+
+Cell[BoxData[
+ RowBox[{"<<", 
+  "QuasiNormalModes`"}]], \
+"Input",ExpressionUUID->"aa4eb5a1-a02f-4213-bd83-85c492615549"],
+
+Cell[CellGroupData[{
+
+Cell["Computing a specific quasinormal mode", \
+"Subsection",ExpressionUUID->"cf5e7b4a-02c2-4fcf-b11d-3406b1b5aaff"],
+
+Cell[BoxData[
+ RowBox[{"QuasiNormalMode", "[", 
+  RowBox[{"0", ",", "0", ",", "0", ",", "0", ",", " ", "0"}], 
+  "]"}]], "Input",ExpressionUUID->"944f1cc3-7ffa-4518-a5ab-4384d13ebdb1"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"QuasiNormalMode", "[", 
+   RowBox[{"0", ",", "1", ",", "1", ",", "0", ",", " ", "0.1"}], "]"}], 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Slowly", " ", "rotating", " ", "Kerr", " ", "black", " ", "hole"}], " ", 
+   "*)"}]}]], "Input",ExpressionUUID->"6b14b2c3-de7c-4974-a70b-2ab41e3b4c49"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"QuasiNormalMode", "[", 
+   RowBox[{"2", ",", "2", ",", "0", ",", "0", ",", " ", "0"}], "]"}], 
+  RowBox[{"(*", " ", 
+   RowBox[{"Gravitational", " ", "case"}], " ", 
+   "*)"}]}]], "Input",ExpressionUUID->"84411fb3-f433-4654-b75d-45f3dd225d67"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Plotting", \
+"Subsection",ExpressionUUID->"a1152415-c168-402e-bf5c-96ec01d76525"],
+
+Cell["\<\
+The QuasiNormalMode function is listable, allowing for easy computation of a \
+family of QNMs.\
+\>", "Text",ExpressionUUID->"71e8f3f5-f5bb-4646-bc6e-6d7a03e28e3b"],
+
+Cell[BoxData[
+ RowBox[{"Modes", "=", 
+  RowBox[{"QuasiNormalMode", "[", 
+   RowBox[{"1", ",", " ", 
+    RowBox[{"Table", "[", 
+     RowBox[{"i", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", " ", "1", ",", " ", "20"}], "}"}]}], "]"}], ",", " ",
+     "0", ",", " ", "0", ",", " ", "0"}], "]"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+    "First", " ", "20", " ", "modes", " ", "for", " ", "the", " ", "0"}], "-", 
+    RowBox[{"th", " ", "overtone"}]}], " ", 
+   "*)"}]}]], "Input",ExpressionUUID->"e65bb4ee-b489-496f-970f-6b0347535709"],
+
+Cell["If you wish to generate a list of lists of QNMs however:", \
+"Text",ExpressionUUID->"92ff3b98-dfe9-46c3-b191-38f9f3708fe7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"QNMsTable", " ", "=", " ", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"QuasiNormalMode", "[", 
+      RowBox[{"1", ",", " ", 
+       RowBox[{"Table", "[", 
+        RowBox[{"i", ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", " ", "1", ",", " ", "20"}], "}"}]}], "]"}], ",", 
+       " ", "0", ",", " ", "j", ",", " ", "0"}], "]"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", " ", "0", ",", " ", "20"}], "}"}]}], "]"}]}], 
+  ";"}]], "Input",ExpressionUUID->"fdf3df31-ed1a-483d-8b20-3ae21462c8a9"],
+
+Cell["\<\
+This can be easily plotted, to allow for checks on the validity of the \
+computed modes, analysing their behaviour, etc.\
+\>", "Text",ExpressionUUID->"0967ac33-d05e-4e2b-a914-50886ab99e1b"],
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", 
+  RowBox[{
+   RowBox[{"ReIm", "[", "QNMsTable", "]"}], ",", " ", 
+   RowBox[{"Joined", "\[Rule]", "True"}]}], 
+  "]"}]], "Input",ExpressionUUID->"b62406cb-8cbe-41d1-857e-a6d12be2670b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Conventions", \
+"Subsection",ExpressionUUID->"cf1f8065-d745-4cc8-bc75-34fea20226a3"],
+
+Cell["\<\
+Note that the convention used in this package is M=1. 
+In addition, we use a convention where all QNMs are returned in the \
+fourth-quadrant of the complex plane (Re[\[Omega]] > 0, Im[\[Omega]] < 0).
+
+If necessary, obtaining the QNMs in another quadrant is a simple \
+transformation.\
+\>", "Text",ExpressionUUID->"54e4a772-4e09-433f-b014-7d1b84446b59"],
+
+Cell[BoxData[
+ RowBox[{"-", 
+  RowBox[{"Conjugate", "[", "QNMsTable", "]"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Third", " ", "quadrant"}], " ", 
+   "*)"}]}]], "Input",ExpressionUUID->"f67939f9-68f2-4a74-aa16-6dddc6a62a29"]
+}, Open  ]]
+}, Open  ]]
+},
+Saveable->True,
+WindowSize->{1393, 1220},
+WindowMargins->{{-27, Automatic}, {Automatic, 7}},
+PrivateNotebookOptions->{"FileOutlineCache"->False,
+"VersionedStylesheet"->{"Default.nb"[8.] -> False}},
+ShowSelection->True,
+TrackCellChangeTimes->False,
+FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+

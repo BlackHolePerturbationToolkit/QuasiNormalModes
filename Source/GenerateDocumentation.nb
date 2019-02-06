@@ -1,0 +1,139 @@
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"ParentDirectory", "[", 
+    RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "]"}], 
+  ";"}]], "Input",ExpressionUUID->"7dc1f01a-58a2-4516-9d6b-de21e85431ea"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"docDir", "=", 
+  "\"\</Users/conor/Documents/BlackHolePerturbationToolkit/QuasiNormalModes\>\
+\""}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"FileNameJoin", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"FileNameDrop", "[", 
+       RowBox[{
+        RowBox[{"FindFile", "[", "\"\<QuasiNormalModes`\>\"", "]"}], ",", 
+        RowBox[{"-", "2"}]}], "]"}], ",", "\"\<Documentation\>\""}], "}"}], 
+    "]"}], "*)"}]}]}], \
+"Input",ExpressionUUID->"e6d3d0bc-73ef-4b19-9377-bec877a6ebcd"],
+
+Cell[BoxData["\<\"/Users/conor/Documents/BlackHolePerturbationToolkit/\
+QuasiNormalModes\"\>"], \
+"Output",ExpressionUUID->"df7d5ef5-4564-4d89-acce-ade9ea409337"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Short", "[", 
+  RowBox[{
+   RowBox[{"docFiles", "=", 
+    RowBox[{"Select", "[", 
+     RowBox[{
+      RowBox[{"FileNames", "[", 
+       RowBox[{"\"\<*\>\"", ",", "docDir", ",", "Infinity"}], "]"}], ",", 
+      RowBox[{
+       RowBox[{"!", 
+        RowBox[{"DirectoryQ", "[", "#", "]"}]}], "&"}]}], "]"}]}], ",", 
+   "10"}], "]"}]], \
+"Input",ExpressionUUID->"b346dc9a-48f4-468f-ad6a-8546c58f02fc"],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"{", 
+   RowBox[{"\<\"/Users/conor/Documents/BlackHolePerturbationToolkit/\
+QuasiNormalModes/Documentation/English/.DS_Store\"\>", 
+    ",", "\<\"/Users/conor/Documents/BlackHolePerturbationToolkit/\
+QuasiNormalModes/Documentation/English/Guides/QuasiNormalModes.nb\"\>", 
+    ",", "\<\"/Users/conor/Documents/BlackHolePerturbationToolkit/\
+QuasiNormalModes/.git/COMMIT_EDITMSG\"\>", 
+    ",", "\<\"/Users/conor/Documents/BlackHolePerturbationToolkit/\
+QuasiNormalModes/.git/config\"\>", ",", 
+    RowBox[{"\[LeftSkeleton]", "122", "\[RightSkeleton]"}], 
+    ",", "\<\"/Users/conor/Documents/BlackHolePerturbationToolkit/\
+QuasiNormalModes/Source/Documentation/English/Tutorials/QuasiNormalModes.md\"\
+\>", ",", \
+"\<\"/Users/conor/Documents/BlackHolePerturbationToolkit/QuasiNormalModes/\
+Source/Documentation/English/Tutorials/QuasiNormalModes.nb\"\>", 
+    ",", "\<\"/Users/conor/Documents/BlackHolePerturbationToolkit/\
+QuasiNormalModes/Source/GenerateDocumentation.m\"\>", 
+    ",", "\<\"/Users/conor/Documents/BlackHolePerturbationToolkit/\
+QuasiNormalModes/Source/GenerateDocumentation.nb\"\>"}], "}"}],
+  Short[#, 
+   10]& ]], "Output",ExpressionUUID->"e835b9c2-d0a0-4131-9a13-510b98b533d4"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"DeleteFile", "[", "docFiles", 
+  "]"}]], "Input",ExpressionUUID->"3cd9bbce-a1fb-4da5-afc8-aa5b5b92ebb3"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"<<", 
+  "\"\<Source/GenerateDocumentation.m\>\""}]], \
+"Input",ExpressionUUID->"bf1d7897-7569-4360-9a3f-4a944c03b2ad"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"Building symbol reference pages\"\>"], \
+"Print",ExpressionUUID->"46abf607-2dfa-4dea-a71a-373b5014d4c6"],
+
+Cell[BoxData["\<\"QuasiNormalMode\"\>"], \
+"Print",ExpressionUUID->"7b77a433-2e3c-4743-9db4-ef352180af98"]
+}, Open  ]],
+
+Cell[BoxData[
+ TemplateBox[{
+  "CreateDirectory","dirf",
+   "\"The specified path \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"/Users/conor/Library/Mathematica/Applications/\
+QuasiNormalModes.wl\\\\\\\"\\\"}]\\) refers to a file; a directory was \
+expected.\"",2,4,2,16867056542008576012,"Local"},
+  "MessageTemplate"]], "Message", \
+"MSG",ExpressionUUID->"66e0bc04-cf9c-4d81-b00e-085de2f19da7"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"Building guides\"\>"], \
+"Print",ExpressionUUID->"2ee9be0c-3413-40a9-bf5a-c7a23ee76df5"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Creating \"\>", 
+   "\[InvisibleSpace]", \
+"\<\"/Users/conor/Documents/BlackHolePerturbationToolkit/QuasiNormalModes/\
+Documentation/English/Guides\"\>"}],
+  SequenceForm[
+  "Creating ", 
+   "/Users/conor/Documents/BlackHolePerturbationToolkit/QuasiNormalModes/\
+Documentation/English/Guides"],
+  Editable->
+   False]], "Print",ExpressionUUID->"279c07b8-e6d6-4d62-a451-b0a88eb9f3c7"],
+
+Cell[BoxData["\<\"Building tutorials\"\>"], \
+"Print",ExpressionUUID->"f1ec83cb-b1ba-4277-a6be-12ebf44b6f25"],
+
+Cell[BoxData["\<\"Source/Documentation/English/Tutorials/QuasiNormalModes.md\"\
+\>"], "Print",ExpressionUUID->"979d4531-2331-47a7-a4f1-771558613805"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1016, 1103},
+WindowMargins->{{237, Automatic}, {Automatic, 0}},
+PrivateNotebookOptions->{"FileOutlineCache"->False,
+"VersionedStylesheet"->{"Default.nb"[8.] -> False}},
+ShowSelection->True,
+TrackCellChangeTimes->False,
+FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+
