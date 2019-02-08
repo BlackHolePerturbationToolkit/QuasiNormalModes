@@ -1,0 +1,73 @@
+Notebook[{
+Cell[" ", "SymbolColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 0}}],
+
+Cell[TextData[{
+ ButtonBox["QuasiNormalModes",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:QuasiNormalModes/guide/QuasiNormalModes"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["QuasiNormalModes",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:QuasiNormalModes/guide/QuasiNormalModes"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["QuasiNormalMode",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:QuasiNormalModes/ref/QuasiNormalMode"]
+}], "LinkTrail"],
+
+Cell["QuasiNormalMode", "ObjectName"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["QuasiNormalMode",
+        BaseStyle->"Link",
+        ButtonData->"paclet:QuasiNormalModes/ref/QuasiNormalMode"], "[", 
+       StyleBox[
+        RowBox[{
+        "s", ",", " ", "l", ",", " ", "m", ",", " ", "n", ",", " ", "a"}], 
+        "TI"], "]"}]], "InlineFormula"],
+     "\[LineSeparator]calculates the quasinormal mode frequencies for a black \
+hole, using Leaver's continued fraction method. The convention used is M = \
+1."
+    }]]}
+  }]], "Usage"],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell"],
+
+Cell[BoxData[""]]
+}, Open  ]]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"QuasiNormalMode",
+Visible->True,
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "context" -> "QuasiNormalModes`", 
+    "keywords" -> {"QuasiNormalMode", "QUASINORMALMODE", "quasinormalmode"}, 
+    "index" -> True, "label" -> "QuasiNormalModes/QuasiNormalModes Symbol", 
+    "language" -> "en", "paclet" -> "QuasiNormalModes", "status" -> "None", 
+    "summary" -> 
+    "QuasiNormalMode[s, l, m, n, a] calculates the quasinormal mode \
+frequencies for a black hole, using Leaver's continued fraction method. The \
+convention used is M = 1.", 
+    "synonyms" -> {"QuasiNormalMode", "QUASINORMALMODE", "quasinormalmode"}, 
+    "title" -> "QuasiNormalMode", "windowTitle" -> "QuasiNormalMode", "type" -> 
+    "Symbol", "uri" -> "QuasiNormalModes/ref/QuasiNormalMode"}, 
+  "SearchTextTranslated" -> "", "LinkTrails" -> ""},
+TrackCellChangeTimes->False,
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
+2016)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

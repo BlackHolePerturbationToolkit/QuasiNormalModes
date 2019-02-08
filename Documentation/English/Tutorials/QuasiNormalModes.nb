@@ -1,0 +1,485 @@
+Notebook[{
+Cell[" ", "TutorialColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 0}}],
+
+Cell[TextData[{
+ ButtonBox["QuasiNormalModes",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:QuasiNormalModes/guide/QuasiNormalModes"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["QuasiNormalModes",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:QuasiNormalModes/tutorial/QuasiNormalModes"]
+}], "LinkTrail"],
+
+Cell[BoxData[GridBox[{
+   {Cell["QUASINORMALMODES TUTORIAL", "PacletNameCell"], Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"Related Tutorials \[RightGuillemet]\"\>",
+        StripOnInput->False], {},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0}],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"URL \[RightGuillemet]\"\>",
+        StripOnInput->False], {"\<\"Go to QuasiNormalModes website\"\>":>
+       FrontEndExecute[{
+         NotebookLocate[{
+           URL[None], None}]}], 
+       Delimiter, "\<\"Go to wolfram Mathematica website\"\>":>
+       FrontEndExecute[{
+         NotebookLocate[{
+           URL[
+           "http://reference.wolfram.com/mathematica/guide/Mathematica.html"],
+            None}]}]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0}]
+    }], "AnchorBar"]}
+  }]], "AnchorBarGrid"],
+
+Cell[CellGroupData[{
+
+Cell["QuasiNormalModes", "Title",
+ $CellContext`ExpressionUUID -> "7049650a-afc7-4360-b5bb-5386076f8c63"],
+
+Cell["\<\
+The QuasiNormalModes package provides functions for computing quasinormal \
+modes of Schwarzschild and Kerr black holes. Before using the functions, \
+first load the package\
+\>", "Text",
+ $CellContext`ExpressionUUID -> "ae8d19c3-705f-4643-bbc8-b26b804331a4"],
+
+Cell[BoxData[
+ RowBox[{"<<", "QuasiNormalModes`"}]], "Input",
+ CellLabel->"In[1]:=",
+ $CellContext`ExpressionUUID -> "aa4eb5a1-a02f-4213-bd83-85c492615549"],
+
+Cell[CellGroupData[{
+
+Cell["Computing a specific quasinormal mode", "Subsection",
+ $CellContext`ExpressionUUID -> "cf5e7b4a-02c2-4fcf-b11d-3406b1b5aaff"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"QuasiNormalMode", "[", 
+  RowBox[{"0", ",", "0", ",", "0", ",", "0", ",", " ", "0"}], "]"}]], "Input",
+ 
+ CellLabel->"In[2]:=",
+ $CellContext`ExpressionUUID -> "944f1cc3-7ffa-4518-a5ab-4384d13ebdb1"],
+
+Cell[BoxData[
+ RowBox[{"0.11045493908042027`", "\[VeryThinSpace]", "-", 
+  RowBox[{"0.1048957170868808`", " ", "\[ImaginaryI]"}]}]], "Output",
+ CellLabel->"Out[2]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"QuasiNormalMode", "[", 
+   RowBox[{"0", ",", "1", ",", "1", ",", "0", ",", " ", "0.1"}], "]"}], 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Slowly", " ", "rotating", " ", "Kerr", " ", "black", " ", "hole"}], " ", 
+   "*)"}]}]], "Input",
+ CellLabel->"In[3]:=",
+ $CellContext`ExpressionUUID -> "6b14b2c3-de7c-4974-a70b-2ab41e3b4c49"],
+
+Cell[BoxData[
+ RowBox[{"0.2855702748685254`", "\[VeryThinSpace]", "-", 
+  RowBox[{"0.09762595726550699`", " ", "\[ImaginaryI]"}]}]], "Output",
+ CellLabel->"Out[3]="]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"QuasiNormalMode", "[", 
+   RowBox[{"2", ",", "2", ",", "0", ",", "0", ",", " ", "0"}], "]"}], 
+  RowBox[{"(*", " ", 
+   RowBox[{"Gravitational", " ", "case"}], " ", "*)"}]}]], "Input",
+ CellLabel->"In[4]:=",
+ $CellContext`ExpressionUUID -> "84411fb3-f433-4654-b75d-45f3dd225d67"],
+
+Cell[BoxData[
+ RowBox[{"0.37367168441804105`", "\[VeryThinSpace]", "-", 
+  RowBox[{"0.08896231568893484`", " ", "\[ImaginaryI]"}]}]], "Output",
+ CellLabel->"Out[4]="]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Plotting", "Subsection",
+ $CellContext`ExpressionUUID -> "a1152415-c168-402e-bf5c-96ec01d76525"],
+
+Cell["\<\
+The QuasiNormalMode function is listable, allowing for easy computation of a \
+family of QNMs.\
+\>", "Text",
+ $CellContext`ExpressionUUID -> "71e8f3f5-f5bb-4646-bc6e-6d7a03e28e3b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Modes", "=", 
+  RowBox[{"QuasiNormalMode", "[", 
+   RowBox[{"1", ",", " ", 
+    RowBox[{"Table", "[", 
+     RowBox[{"i", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", " ", "1", ",", " ", "5"}], "}"}]}], "]"}], ",", " ", 
+    "0", ",", " ", "0", ",", " ", "0"}], "]"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+    "First", " ", "20", " ", "modes", " ", "for", " ", "the", " ", "0"}], "-", 
+    RowBox[{"th", " ", "overtone"}]}], " ", "*)"}]}]], "Input",
+ CellLabel->"In[5]:=",
+ $CellContext`ExpressionUUID -> "e65bb4ee-b489-496f-970f-6b0347535709"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"0.24826326417810912`", "\[VeryThinSpace]", "-", 
+    RowBox[{"0.09248771795294207`", " ", "\[ImaginaryI]"}]}], ",", 
+   RowBox[{"0.45759551162985246`", "\[VeryThinSpace]", "-", 
+    RowBox[{"0.09500442581947142`", " ", "\[ImaginaryI]"}]}], ",", 
+   RowBox[{"0.6568986704624783`", "\[VeryThinSpace]", "-", 
+    RowBox[{"0.09561621792833531`", " ", "\[ImaginaryI]"}]}], ",", 
+   RowBox[{"0.853095192997701`", "\[VeryThinSpace]", "-", 
+    RowBox[{"0.0958599348280358`", " ", "\[ImaginaryI]"}]}], ",", 
+   RowBox[{"1.047912781931858`", "\[VeryThinSpace]", "-", 
+    RowBox[{"0.09598167202949717`", " ", "\[ImaginaryI]"}]}]}], 
+  "}"}]], "Output",
+ CellLabel->"Out[5]="]
+}, Open  ]],
+
+Cell["If you wish to generate a list of lists of QNMs however:", "Text",
+ $CellContext`ExpressionUUID -> "92ff3b98-dfe9-46c3-b191-38f9f3708fe7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"QNMsTable", " ", "=", " ", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"QuasiNormalMode", "[", 
+      RowBox[{"1", ",", " ", 
+       RowBox[{"Table", "[", 
+        RowBox[{"i", ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", " ", "1", ",", " ", "5"}], "}"}]}], "]"}], ",", 
+       " ", "0", ",", " ", "j", ",", " ", "0"}], "]"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", " ", "0", ",", " ", "5"}], "}"}]}], "]"}]}], 
+  ";"}]], "Input",
+ CellLabel->"In[6]:=",
+ $CellContext`ExpressionUUID -> "fdf3df31-ed1a-483d-8b20-3ae21462c8a9"],
+
+Cell["\<\
+This can be easily plotted, to allow for checks on the validity of the \
+computed modes, analysing their behaviour, etc.\
+\>", "Text",
+ $CellContext`ExpressionUUID -> "0967ac33-d05e-4e2b-a914-50886ab99e1b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ListPlot", "[", 
+  RowBox[{
+   RowBox[{"ReIm", "[", "QNMsTable", "]"}], ",", " ", 
+   RowBox[{"Joined", "\[Rule]", "True"}]}], "]"}]], "Input",
+ CellLabel->"In[7]:=",
+ $CellContext`ExpressionUUID -> "b62406cb-8cbe-41d1-857e-a6d12be2670b"],
+
+Cell[BoxData[
+ GraphicsBox[{{}, {{}, {}, 
+    {RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.012833333333333334`],
+      AbsoluteThickness[1.6], 
+     LineBox[{{0.24826326417810912`, -0.09248771795294207}, {
+      0.45759551162985246`, -0.09500442581947142}, {
+      0.6568986704624783, -0.09561621792833531}, {
+      0.853095192997701, -0.0958599348280358}, {
+      1.047912781931858, -0.09598167202949717}}]}, 
+    {RGBColor[0.880722, 0.611041, 0.142051], PointSize[0.012833333333333334`],
+      AbsoluteThickness[1.6], 
+     LineBox[{{0.21451541956360706`, -0.29366764554572805`}, {
+      0.4365423857505436, -0.29071014312036436`}, {
+      0.6417374359679007, -0.2897284017282054}, {
+      0.8412670606065176, -0.28931467337668915`}, {
+      1.0382208878730284`, -0.2891038596731197}}]}, 
+    {RGBColor[0.560181, 0.691569, 0.194885], PointSize[0.012833333333333334`],
+      AbsoluteThickness[1.6], 
+     LineBox[{{0.17477356760701113`, -0.5251875993588254}, {
+      0.40118673391643284`, -0.5015873463416562}, {
+      0.6138320263342492, -0.49206625823790884`}, {
+      0.8187283799051985, -0.48783829852296073`}, {
+      1.0194423040618745`, -0.4856455325043692}}]}, 
+    {RGBColor[0.922526, 0.385626, 0.209179], PointSize[0.012833333333333334`],
+      AbsoluteThickness[1.6], 
+     LineBox[{{0.14617669941699918`, -0.7719089239980854}, {
+      0.3625950323314709, -0.7301985142863915}, {
+      0.5779185060781354, -0.7063308302872878}, {
+      0.7877483364740204, -0.694242415664029}, {
+      0.9928126951815912, -0.6876578548422957}}]}, 
+    {RGBColor[0.528488, 0.470624, 0.701351], PointSize[0.012833333333333334`],
+      AbsoluteThickness[1.6], 
+     LineBox[{{0.12655414599036752`, -1.022550283803333}, {
+      0.32873667110838695`, -0.9716093789324111}, {
+      0.5397685261472203, -0.9331797176108382}, {
+      0.7515486327356595, -0.9102418892124065}, {
+      0.9601745150277239, -0.8967467357515143}}]}, 
+    {RGBColor[0.772079, 0.431554, 0.102387], PointSize[0.012833333333333334`],
+      AbsoluteThickness[1.6], 
+     LineBox[{{0.11225279079973234`, -1.2739256193783868`}, {
+      0.30149299573473837`, -1.219715249742235}, {
+      0.503901745407555, -1.170355889049285}, {
+      0.7136335554532041, -1.1360039566847764`}, {
+      0.9238003019761829, -1.1138008927140928`}}]}}, {}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{None, None},
+  AxesOrigin->{0, 0},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->All,
+  Method->{"CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& )}},
+  PlotRange->{{0, 1.047912781931858}, {-1.2739256193783868`, 0}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.05], 
+     Scaled[0.02]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellLabel->"Out[7]="]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Conventions", "Subsection",
+ $CellContext`ExpressionUUID -> "cf1f8065-d745-4cc8-bc75-34fea20226a3"],
+
+Cell["\<\
+Note that the convention used in this package is M=1. 
+In addition, we use a convention where all QNMs are returned in the \
+fourth-quadrant of the complex plane (Re[\[Omega]] > 0, Im[\[Omega]] < 0).
+
+If necessary, obtaining the QNMs in another quadrant is a simple \
+transformation.\
+\>", "Text",
+ $CellContext`ExpressionUUID -> "54e4a772-4e09-433f-b014-7d1b84446b59"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"-", 
+  RowBox[{"Conjugate", "[", "QNMsTable", "]"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Third", " ", "quadrant"}], " ", "*)"}]}]], "Input",
+ CellLabel->"In[8]:=",
+ $CellContext`ExpressionUUID -> "f67939f9-68f2-4a74-aa16-6dddc6a62a29"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "0.24826326417810912`"}], "-", 
+      RowBox[{"0.09248771795294207`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.45759551162985246`"}], "-", 
+      RowBox[{"0.09500442581947142`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.6568986704624783`"}], "-", 
+      RowBox[{"0.09561621792833531`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.853095192997701`"}], "-", 
+      RowBox[{"0.0958599348280358`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "1.047912781931858`"}], "-", 
+      RowBox[{"0.09598167202949717`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+   
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "0.21451541956360706`"}], "-", 
+      RowBox[{"0.29366764554572805`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.4365423857505436`"}], "-", 
+      RowBox[{"0.29071014312036436`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.6417374359679007`"}], "-", 
+      RowBox[{"0.2897284017282054`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.8412670606065176`"}], "-", 
+      RowBox[{"0.28931467337668915`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "1.0382208878730284`"}], "-", 
+      RowBox[{"0.2891038596731197`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "0.17477356760701113`"}], "-", 
+      RowBox[{"0.5251875993588254`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.40118673391643284`"}], "-", 
+      RowBox[{"0.5015873463416562`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.6138320263342492`"}], "-", 
+      RowBox[{"0.49206625823790884`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.8187283799051985`"}], "-", 
+      RowBox[{"0.48783829852296073`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "1.0194423040618745`"}], "-", 
+      RowBox[{"0.4856455325043692`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "0.14617669941699918`"}], "-", 
+      RowBox[{"0.7719089239980854`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.3625950323314709`"}], "-", 
+      RowBox[{"0.7301985142863915`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.5779185060781354`"}], "-", 
+      RowBox[{"0.7063308302872878`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.7877483364740204`"}], "-", 
+      RowBox[{"0.694242415664029`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.9928126951815912`"}], "-", 
+      RowBox[{"0.6876578548422957`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "0.12655414599036752`"}], "-", 
+      RowBox[{"1.022550283803333`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.32873667110838695`"}], "-", 
+      RowBox[{"0.9716093789324111`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.5397685261472203`"}], "-", 
+      RowBox[{"0.9331797176108382`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.7515486327356595`"}], "-", 
+      RowBox[{"0.9102418892124065`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.9601745150277239`"}], "-", 
+      RowBox[{"0.8967467357515143`", " ", "\[ImaginaryI]"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "0.11225279079973234`"}], "-", 
+      RowBox[{"1.2739256193783868`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.30149299573473837`"}], "-", 
+      RowBox[{"1.219715249742235`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.503901745407555`"}], "-", 
+      RowBox[{"1.170355889049285`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.7136335554532041`"}], "-", 
+      RowBox[{"1.1360039566847764`", " ", "\[ImaginaryI]"}]}], ",", 
+     RowBox[{
+      RowBox[{"-", "0.9238003019761829`"}], "-", 
+      RowBox[{"1.1138008927140928`", " ", "\[ImaginaryI]"}]}]}], "}"}]}], 
+  "}"}]], "Output",
+ CellLabel->"Out[8]="]
+}, Open  ]]
+}, Open  ]],
+
+Cell["", "RelatedTutorialsSection",
+ WholeCellGroupOpener->True,
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "RELATED TUTORIALS", BaseStyle -> None, 
+        Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
+        "Preemptive", ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "RelatedTutorialsSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            InterpretationBox[
+             StyleBox[
+              
+              GraphicsBox[{}, ImageSize -> {24, 0}, BaselinePosition -> 
+               Baseline], "CacheGraphics" -> False], 
+             Spacer[24]]]], "Related Tutorials"}], "RelatedTutorialsSection"],
+        BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None,
+        Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->0]
+}, Open  ]],
+
+Cell[" ", "FooterCell"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"QuasiNormalModes",
+Visible->True,
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "context" -> "QuasiNormalModes`", 
+    "keywords" -> {"Quasinormal", "Schwarzschild", "Kerr"}, "index" -> True, 
+    "label" -> "QuasiNormalModes Tutorial", "language" -> "en", "paclet" -> 
+    "QuasiNormalModes", "status" -> "None", "summary" -> 
+    "Tutorial for the QuasiNormalModes package.", "synonyms" -> {}, "title" -> 
+    "QuasiNormalModes", "windowTitle" -> "QuasiNormalModes", "type" -> 
+    "Tutorial", "uri" -> "QuasiNormalModes/tutorial/QuasiNormalModes"}, 
+  "SearchTextTranslated" -> "", "LinkTrails" -> ""},
+TrackCellChangeTimes->False,
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
+2016)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

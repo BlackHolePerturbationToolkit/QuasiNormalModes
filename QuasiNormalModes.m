@@ -277,7 +277,7 @@ QuasiNormalMode[s_Integer, l_Integer, m_Integer, n_Integer, a_Integer] /; a == 0
 QuasiNormalMode[s_Integer, l_Integer, m_Integer, n_Integer, a_Real] := QNMKerr[s, l, m, n, a];
 QuasiNormalMode[s_Integer, l_Integer, m_Integer, n_Integer, a_Integer] := QNMKerr[s, l, m, n, N[a]]; (* Unusual behaviour in the case where a was an integer (in these units, 0 is the only possible integer value) was encounterd and the function would not evaluate. *)
 
-SetAttributes[QuasiNormalMode, {NumericFunction, Listable, Protected}]; (* This function will be assumed to have a numerical value, if its arguments are numeric.
+SetAttributes[QuasiNormalMode, {NumericFunction, Listable}]; (* This function will be assumed to have a numerical value, if its arguments are numeric.
 																		It will also be automatically threaded over lists (so can compute QNMs for a list of modes.*)
 
 

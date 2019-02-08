@@ -3,7 +3,7 @@
 Paclet[
   Name -> "QuasiNormalModes",
   Version -> "0.1.0",
-  MathematicaVersion -> "11+",
+  MathematicaVersion -> "8+",
   Creator -> "Conor O'Toole",
   Description -> "Code to return the Quasinormal Mode frequencies of a rotating or non-rotating frequency.",
   Extensions -> {
@@ -13,9 +13,9 @@ Paclet[
 
     {"Documentation",
      Language -> "English", 
-     MainPage -> "Guides/QuasiNormal Modes",
+     MainPage -> "Guides/QuasiNormalModes",
      Resources -> 
-     	{"Guides/QuasiNormal Modes"}
+     	{"Guides/QuasiNormalModes"}
     }
   }
 ]

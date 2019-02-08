@@ -3,8 +3,8 @@ Cell[BoxData[
  RowBox[{
   RowBox[{"SetDirectory", "[", 
    RowBox[{"ParentDirectory", "[", 
-    RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "]"}], 
-  ";"}]], "Input",ExpressionUUID->"7dc1f01a-58a2-4516-9d6b-de21e85431ea"],
+    RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "]"}], ";"}]], "Input",
+ ExpressionUUID -> "7dc1f01a-58a2-4516-9d6b-de21e85431ea"],
 
 Cell[CellGroupData[{
 
@@ -17,11 +17,12 @@ Cell[BoxData[
       RowBox[{
        RowBox[{"FindFile", "[", "\"\<QuasiNormalModes`\>\"", "]"}], ",", 
        RowBox[{"-", "2"}]}], "]"}], ",", "\"\<Documentation\>\""}], "}"}], 
-   "]"}]}]], "Input",ExpressionUUID->"e6d3d0bc-73ef-4b19-9377-bec877a6ebcd"],
+   "]"}]}]], "Input",
+ ExpressionUUID -> "e6d3d0bc-73ef-4b19-9377-bec877a6ebcd"],
 
-Cell[BoxData["\<\"/Users/conor/Library/Mathematica/Applications/\
-QuasiNormalModes/Documentation\"\>"], \
-"Output",ExpressionUUID->"c7969530-0168-479c-bf0d-13673ad03c3c"]
+Cell[BoxData["\<\"/Users/niels/Library/Mathematica/Applications/\
+QuasiNormalModes/Documentation\"\>"], "Output",
+ ExpressionUUID -> "c7969530-0168-479c-bf0d-13673ad03c3c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -37,69 +38,100 @@ Cell[BoxData[
       RowBox[{
        RowBox[{"!", 
         RowBox[{"DirectoryQ", "[", "#", "]"}]}], "&"}]}], "]"}]}], ",", 
-   "10"}], "]"}]], \
-"Input",ExpressionUUID->"b346dc9a-48f4-468f-ad6a-8546c58f02fc"],
+   "10"}], "]"}]], "Input",
+ ExpressionUUID -> "b346dc9a-48f4-468f-ad6a-8546c58f02fc"],
 
 Cell[BoxData[
  TagBox[
-  RowBox[{
-  "{", "\<\"/Users/conor/Library/Mathematica/Applications/QuasiNormalModes/\
-Documentation/English/ReferencePages/Symbols/QuasiNormalMode.nb\"\>", "}"}],
-  Short[#, 
-   10]& ]], "Output",ExpressionUUID->"54a49722-23e0-4da9-bc35-91d26e5eaf70"]
+  RowBox[{"{", 
+   RowBox[{"\<\"/Users/niels/Library/Mathematica/Applications/\
+QuasiNormalModes/Documentation/English/Guides/QuasiNormalModes.nb\"\>", 
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/QuasiNormalModes/\
+Documentation/English/Index/_0.cfs\"\>", 
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/QuasiNormalModes/\
+Documentation/English/Index/segments_3\"\>", 
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/QuasiNormalModes/\
+Documentation/English/Index/segments.gen\"\>", ",", 
+    RowBox[{"\<\"/Users/niels/Library/Mathematica/Applications/QuasiNorm\"\>",
+      "\[Ellipsis]", \
+"\<\"tation/English/ReferencePages/Symbols/QuasiNormalMode.nb\"\>"}], 
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/QuasiNormalModes/\
+Documentation/English/SpellIndex/_0.cfs\"\>", 
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/QuasiNormalModes/\
+Documentation/English/SpellIndex/segments_3\"\>", 
+    ",", "\<\"/Users/niels/Library/Mathematica/Applications/QuasiNormalModes/\
+Documentation/English/SpellIndex/segments.gen\"\>"}], "}"}],
+  Short[#, 10]& ]], "Output",
+ ExpressionUUID -> "54a49722-23e0-4da9-bc35-91d26e5eaf70"]
 }, Open  ]],
 
 Cell[BoxData[
- RowBox[{"DeleteFile", "[", "docFiles", 
-  "]"}]], "Input",ExpressionUUID->"3cd9bbce-a1fb-4da5-afc8-aa5b5b92ebb3"],
+ RowBox[{"DeleteFile", "[", "docFiles", "]"}]], "Input",
+ ExpressionUUID -> "3cd9bbce-a1fb-4da5-afc8-aa5b5b92ebb3"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"<<", 
-  "\"\<Source/GenerateDocumentation.m\>\""}]], \
-"Input",ExpressionUUID->"bf1d7897-7569-4360-9a3f-4a944c03b2ad"],
+ RowBox[{"<<", "\"\<Source/GenerateDocumentation.m\>\""}]], "Input",
+ ExpressionUUID -> "bf1d7897-7569-4360-9a3f-4a944c03b2ad"],
 
 Cell[CellGroupData[{
 
-Cell[BoxData["\<\"Building symbol reference pages\"\>"], \
-"Print",ExpressionUUID->"9aef5f0e-b32e-45b4-bdbd-e6fa4db3cd68"],
+Cell[BoxData["\<\"Building symbol reference pages\"\>"], "Print",
+ ExpressionUUID -> "9aef5f0e-b32e-45b4-bdbd-e6fa4db3cd68"],
 
-Cell[BoxData["\<\"QuasiNormalMode\"\>"], \
-"Print",ExpressionUUID->"db2ecffa-b7aa-4b70-a715-dded8dc368c0"],
+Cell[BoxData["\<\"QuasiNormalMode\"\>"], "Print",
+ ExpressionUUID -> "9aef5f0e-b32e-45b4-bdbd-e6fa4db3cd68"],
 
-Cell[BoxData["\<\"Building guides\"\>"], \
-"Print",ExpressionUUID->"8fdd8cd1-fed7-4ea7-a32e-a5ae114c0b27"],
+Cell[BoxData["\<\"Building guides\"\>"], "Print",
+ ExpressionUUID -> "9aef5f0e-b32e-45b4-bdbd-e6fa4db3cd68"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Creating \"\>", 
    "\[InvisibleSpace]", \
-"\<\"/Users/conor/Documents/BlackHolePerturbationToolkit/QuasiNormalModes/\
+"\<\"/Users/niels/Library/Mathematica/Applications/QuasiNormalModes/\
 Documentation/English/Guides\"\>"}],
   SequenceForm[
   "Creating ", 
-   "/Users/conor/Documents/BlackHolePerturbationToolkit/QuasiNormalModes/\
+   "/Users/niels/Library/Mathematica/Applications/QuasiNormalModes/\
 Documentation/English/Guides"],
-  Editable->
-   False]], "Print",ExpressionUUID->"428fe046-9bf2-42c7-b73d-5a2c931e7e57"],
+  Editable->False]], "Print",
+ ExpressionUUID -> "9aef5f0e-b32e-45b4-bdbd-e6fa4db3cd68"],
 
-Cell[BoxData["\<\"Building tutorials\"\>"], \
-"Print",ExpressionUUID->"0f08ea79-a13e-48d1-bacb-9e375d26cbdf"],
+Cell[BoxData["\<\"Building tutorials\"\>"], "Print",
+ ExpressionUUID -> "9aef5f0e-b32e-45b4-bdbd-e6fa4db3cd68"],
 
 Cell[BoxData["\<\"Source/Documentation/English/Tutorials/QuasiNormalModes.md\"\
-\>"], "Print",ExpressionUUID->"56466542-d5e8-424b-a26f-a56ae50fb32c"]
+\>"], "Print",
+ ExpressionUUID -> "9aef5f0e-b32e-45b4-bdbd-e6fa4db3cd68"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"i\"\>", ",", "\<\"j\"\>", ",", "\<\"Modes\"\>", 
+     ",", "\<\"QNMsTable\"\>", ",", "\<\"result\"\>"}], "}"}]}],
+  SequenceForm["Removing ", {"i", "j", "Modes", "QNMsTable", "result"}],
+  Editable->False]], "Print",
+ ExpressionUUID -> "9aef5f0e-b32e-45b4-bdbd-e6fa4db3cd68"],
+
+Cell[BoxData["\<\"Indexing Documentation\"\>"], "Print",
+ ExpressionUUID -> "9aef5f0e-b32e-45b4-bdbd-e6fa4db3cd68"],
+
+Cell[BoxData["\<\"Done\"\>"], "Print",
+ ExpressionUUID -> "9aef5f0e-b32e-45b4-bdbd-e6fa4db3cd68"]
 }, Open  ]]
 }, Open  ]]
 },
 WindowSize->{1016, 1103},
-WindowMargins->{{237, Automatic}, {Automatic, 0}},
+WindowMargins->{{1015, Automatic}, {Automatic, 60}},
 PrivateNotebookOptions->{"FileOutlineCache"->False,
 "VersionedStylesheet"->{"Default.nb"[8.] -> False}},
 ShowSelection->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"11.2 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
-10, 2017)",
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
+2016)",
 StyleDefinitions->"Default.nb"
 ]
 

@@ -1,0 +1,126 @@
+Notebook[{
+Cell[" ", "GuideColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 0}}],
+
+Cell[TextData[{
+ ButtonBox["QuasiNormalModes",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:QuasiNormalModes/guide/QuasiNormalModes"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["Quasinormal Modes of Schwarzschild and Kerr Black Holes",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:QuasiNormalModes/guide/QuasiNormalModes"]
+}], "LinkTrail"],
+
+Cell[BoxData[GridBox[{
+   {Cell["QUASINORMALMODES GUIDE", "PacletNameCell"], Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
+        StripOnInput->False], {"QuasiNormalModes":>Documentation`HelpLookup[
+       "paclet:QuasiNormalModes/tutorial/QuasiNormalModes"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0}],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"URL \[RightGuillemet]\"\>",
+        StripOnInput->False], {"\<\"Go to QuasiNormalModes website\"\>":>
+       FrontEndExecute[{
+         NotebookLocate[{
+           URL[""], None}]}], 
+       Delimiter, "\<\"Go to wolfram Mathematica website\"\>":>
+       FrontEndExecute[{
+         NotebookLocate[{
+           URL[
+           "http://reference.wolfram.com/mathematica/guide/Mathematica.html"],
+            None}]}]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0}]
+    }], "AnchorBar"]}
+  }]], "AnchorBarGrid"],
+
+Cell[CellGroupData[{
+
+Cell["Quasinormal Modes of Schwarzschild and Kerr Black Holes", "GuideTitle"],
+
+Cell["\<\
+The QuasiNormalModes package provides a function for computing the \
+quasinormal modes of Schwarzschild or Kerr black holes.\
+\>", "GuideAbstract"],
+
+Cell[CellGroupData[{
+
+Cell["Quasinormal Modes", "GuideFunctionsSubsection"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["QuasiNormalMode",
+  BaseStyle->"Link",
+  ButtonData->"paclet:QuasiNormalModes/ref/QuasiNormalMode"]], 
+  "InlineFunctionSans"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Computes the specified quasinormal mode (l, m, n) for a given spin, s, and \
+angular momentum, a."
+}], "GuideText"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "GuideTutorialsSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell["TUTORIALS", "GuideTutorialsSection"], 
+     Cell["Tutorials", "GuideTutorialsSection"]], None}, {None, None}},
+ CellFrameLabelMargins->0],
+
+Cell[TextData[ButtonBox["QuasiNormalModes",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:QuasiNormalModes/tutorial/QuasiNormalModes"]], "GuideTutorial"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell"],
+
+Cell[BoxData[""]]
+}, Open  ]]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"Quasinormal Modes of Schwarzschild and Kerr Black Holes",
+Visible->True,
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "context" -> "QuasiNormalModes`", 
+    "keywords" -> {"Quasinormal", "Schwarzschild", "Kerr"}, "index" -> True, 
+    "label" -> "QuasiNormalModes Application", "language" -> "en", "paclet" -> 
+    "QuasiNormalModes", "status" -> "None", "summary" -> 
+    "Function for computing the quasinormal modes of rotating and \
+non-rotating black holes.", 
+    "synonyms" -> {"QuasiNormalModes", "QuasiNormalModes"}, "title" -> 
+    "Quasinormal Modes of Schwarzschild and Kerr Black Holes", "windowTitle" -> 
+    "Quasinormal Modes of Schwarzschild and Kerr Black Holes", "type" -> 
+    "Guide", "uri" -> "QuasiNormalModes/guide/QuasiNormalModes"}, 
+  "SearchTextTranslated" -> "", "LinkTrails" -> ""},
+TrackCellChangeTimes->False,
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
+2016)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+
