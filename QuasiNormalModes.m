@@ -72,7 +72,7 @@ L2c = (\[Sigma]^2 (1-\[Sigma]))/(\[Sigma]+1);
 
 Prec = 100; (*Numerical precision, machine precision found to be insufficient*)
 			(* Make optional for users to set? Requires more testing as well *)
-If[n > 2, Ndiv = 5n, Ndiv = 20]; (* Subdivision of radial domain \[Sigma] \[Element] [0,1] used for discretization of radial derivs *)
+If[n > 2, Ndiv = 6n, Ndiv = 20]; (* Subdivision of radial domain \[Sigma] \[Element] [0,1] used for discretization of radial derivs *)
 ndiv = Ndiv + 1; (* Matrix dimension *)
 
 \[Sigma]0 = 0;
