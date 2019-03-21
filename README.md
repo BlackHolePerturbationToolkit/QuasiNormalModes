@@ -57,6 +57,7 @@ be found in the LICENSE file.
 
 Conor O'Toole  
 Rodrigo Macedo  
+Tom Stratton  
 Barry Wardell  
 
 # Citation guideline
