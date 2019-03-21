@@ -13,6 +13,8 @@ QuasiNormalMode::UntrustedSpin = "Currently, the results for this value of a = `
 
 QuasiNormalMode::InvalidL = "l must be greater than or equal to |s|."
 
+ReggePoleSchwarz::usage = "ReggePoleSchwarz[s, \[Omega], n] calculates the Regge pole in the complex angular momentum plane, \[Lambda]=l+1/2, for a Schwarzschild black hole, using Leaver's continued fraction method. The convention used is M = 1.";
+
 Begin["`Private`"];           (* Beginning private context which will contain all functions which the user doesn't need to access (and which may conflict with their own code*)
 
 M = 1; (* Mass. This is the standard convention *)
@@ -279,6 +281,61 @@ QuasiNormalMode[s_Integer, l_Integer, m_Integer, n_Integer, a_Integer] := QNMKer
 
 SetAttributes[QuasiNormalMode, {NumericFunction, Listable}]; (* This function will be assumed to have a numerical value, if its arguments are numeric.
 																		It will also be automatically threaded over lists (so can compute QNMs for a list of modes.*)
+
+
+(* ::Section:: *)
+(*Regge poles*)
+
+
+(*Implementing Leaver's continued fraction method to find Regge poles (RP) in the complex angular momentum plane \[Lambda]=l+1/2. *)
+(*Intro to CAM: Decanini, Folacci and Jensen Phys.Rev. D67 (2003) 124017 
+	Tables of Regge poles for Schwarzschild: Decanini and Folacci Phys.Rev. D81 (2010) 024031
+	Expansion for Schw. RPs in 1/\[Omega] : Class.Quant.Grav. 26 (2009) 225003*)
+
+
+(*initial guesses*)
+Subscript[\[Lambda], -1][s_,n_] := Sqrt[27]; (*thus, in high \[Omega] regime, can associate Regge state with impact parameter b = Sqrt[27]M = critical...interpret as surface wave *)
+Subscript[\[Lambda], 0][s_,n_] := I*(n+1/2);
+Subscript[\[Lambda], 1][s_,n_] := (60(n+1/2)^2-144*\[Beta][s]+115)/(432*Sqrt[27]);
+Subscript[\[Lambda], 2][s_,n_] := -I*(n+1/2)(1220(n+1/2)^2-6912*\[Beta][s]+5555)/(419904);
+Subscript[\[Lambda], 3][s_,n_] := (-18*\[Beta][s]^2/(6561) + (2316(n+1/2)^2+479)\[Beta][s]^2/(104976) - (2357520(n+1/2)^4 + 19382280(n+1/2)^2 + 2079661)/(1088391168))/Sqrt[27];
+Subscript[\[Lambda], 4][s_,n_] := I*(n+1/2)*( 8*\[Beta][s]^2/(19683) - (5*\[Beta][s]*(3716(n+1/2)^2+2291))/(17006112) + (144920784(n+1/2)^4 + 1871793480(n+1/2)^2 + 593617841)/(2115832430592));
+SchwarzInitRP[s_, \[Omega]_, n_] := Sum[Subscript[\[Lambda], j][s, n]*\[Omega]^-j,{j,-1,4,1}];
+
+
+(*Leavers continued fraction method*)
+
+LeaverRP[\[Omega]_?NumericQ, s_?IntegerQ, l_?NumericQ, nInv_?IntegerQ] := \[Delta][nInv,\[Omega], s, l] + ContinuedFractionK[-\[Alpha][nInv-i, \[Omega]] \[Gamma][nInv-i+1, \[Omega], s],\[Delta][nInv-i,\[Omega],s, l],{i,1,nInv}] + ContFrac[\[Omega], s, l, nInv];
+
+
+RPSchwarzschild[s_Integer, \[Omega]_Real, n_Integer] := Module[{NInv, \[Lambda]init, Sol, rp, rptemp},
+NInv = n;
+
+
+(*If[Abs[\[Omega]] < 0.25,  Message[ReggePole::InvalidFrequency]]; (*don't have seed method for low \[Omega] yet..unclear where exactly this breaks down*)*)
+
+(*Selection of initial seed method *)
+(*Ideally, we would first check how well this satisfies the eq to be solved.
+ If within the user's desired accuracy, just return the initial guess.
+ Would be faster *)
+\[Lambda]init = SchwarzInitRP[s, \[Omega], n];
+
+
+(*note we look in the complex l-plane so need to subtract 1/2 from the initial guess of \[Lambda] := l+1/2*)
+Sol = Values[FindRoot[{Re[LeaverRP[\[Omega], s, x - 1/2 +I y, NInv]] == 0, Im[LeaverRP[\[Omega], s, x - 1/2 +I y, NInv]] == 0}, {x, Re[\[Lambda]init]}, {y, Im[\[Lambda]init]}]];
+
+rp = N[Sol[[1]]+ I Sol[[2]]];
+
+rp
+]
+
+
+SyntaxInformation[ReggePoleSchwarz] = {ArgumentsPattern->{_, _, _}}; (* This specifies that ReggePoleSchwarz takes exactly 3 arguments*)
+
+ReggePoleSchwarz[s_Integer, \[Omega]_Real, n_Integer]:= RPSchwarzschild[s, \[Omega], n];
+ReggePoleSchwarz[s_Integer, \[Omega]_Integer, n_Integer]:= RPSchwarzschild[s, N[\[Omega],30], n];
+
+SetAttributes[ReggePoleSchwarz, {NumericFunction, Listable}];
 
 
 End[];
