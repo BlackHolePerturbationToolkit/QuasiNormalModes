@@ -21,3 +21,6 @@ Currently the Schwarzschild ($a=0$) case works well. For QNMs in Kerr you are no
 
 Additional documentation can be found in the Mathematica Documentation included with the package.
 
+## Authors and contributors
+
+**Conor O'Toole**, Rodrigo Macedo, Tom Stratton, Barry Wardell
