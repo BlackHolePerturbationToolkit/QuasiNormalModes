@@ -6,6 +6,8 @@ Copyright (c) 2017-2018 Black Hole Perturbation Toolkit Team
 The QuasiNormalModes package provides a set of functions for
 computing the quasinormal modes of Schwarzschild and Kerr black holes.
 
+**This package is no longer maintained has been superceded by the [QNM](https://bhptoolkit.org/QNM-Mathematica) package.**
+
 ## Getting the package
 
 The latest development version will always be available from the project git
